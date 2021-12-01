@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
+use App\Controller\BaseController;
 use App\Model\UserManager;
 
-class FrontController
+class FrontController extends BaseController
 {
     public function showUsers() {
         $manager = new UserManager();
