@@ -24,7 +24,7 @@
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">User list </a>
+        <a class="nav-link" href="?p=users">User list </a>
       </li>
     </ul>
   </div>
