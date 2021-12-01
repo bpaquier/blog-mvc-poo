@@ -1,0 +1,25 @@
+.form-group {
+  margin-bottom: 1rem;
+}
+h1,
+h2,
+h3,
+h4 {
+  margin-bottom: 1rem;
+}
+
+.navbar-collapse {
+  display: flex;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.nav-form {
+  margin-right: 40px;
+}
+
+.github-icon {
+  height: 40px;
+  margin-left: 40px;
+  cursor: pointer;
+}
