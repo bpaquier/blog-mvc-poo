@@ -18,6 +18,17 @@ include './views/my-account/index.php';
 include './views/users/index.php';
 ?>
 
+<?php
+include './views/posts/index.php';
+?>
+
+<?php
+include './views/post/index.php';
+?>
+
+
+
+
 
 <?php
 include './views/templates/footer.php';
