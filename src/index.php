@@ -4,10 +4,6 @@ require_once './vendor/autoload.php';
 
 include './views/templates/header.php';
 
-
-$users = new App\Controller\FrontController();
-var_dump($users->showUsers());
-
 ?>
 
 <?php 
