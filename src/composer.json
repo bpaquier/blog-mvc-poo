@@ -2,7 +2,7 @@
     "name": "bastpaq/src",
     "autoload": {
         "psr-4": {
-            "Project\\": "./"
+            "App\\": "./"
         }
     },
     "authors": [
