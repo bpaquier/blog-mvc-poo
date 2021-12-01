@@ -1,39 +1,9 @@
 <?php
+session_start();
+
 
 require_once './vendor/autoload.php';
 
-include './views/templates/header.php';
+$router = new \App\Controller\Router\Router();
 
-?>
-
-<?php 
-include './views/templates/header.php';
-?>
-
-<?php 
-include './views/templates/nav.php';
-?>
-
-<?php
-include './views/my-account/index.php';
-?>
-
-<?php 
-include './views/users/index.php';
-?>
-
-<?php
-include './views/posts/index.php';
-?>
-
-<?php
-include './views/post/index.php';
-?>
-
-
-
-
-
-<?php
-include './views/templates/footer.php';
-?>
+$router->getController();

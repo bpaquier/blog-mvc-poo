@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <routes>
-    <route p="users" controller="FrontController" action="showUsers"/>
-    <route p="user" controller="FrontController" action="showSingleUser" params="id"/>
+    <route p="users" controller="UserController" action="showUsers"/>
 </routes>
