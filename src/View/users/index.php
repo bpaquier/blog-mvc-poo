@@ -16,8 +16,7 @@
                 </thead>
                 <tbody>
         <?php
-       foreach ($users as $user) {
-            ?>
+       foreach ($users as $user) : ?>
                <tr>
                    <th scope="row"><?= $user['id'] ?></th>
                    <td><?= $user['last_name'] ?></td>
@@ -30,9 +29,7 @@
                        <a href="#" class="btn btn-danger">Delete</a>
                    </td>
                </tr>
-            <?php
-       }
-       ?>
+            <?php endforeach; ?>
                 </tbody>
             </table>
         <?php
