@@ -1,5 +1,8 @@
 <?php
+
 namespace App\Model;
+
+use App\Model\JSONResponse;
 
 class HTTPResponse
 {
@@ -29,6 +32,11 @@ class HTTPResponse
 
     $this->addHeader('Cache-Control: public, max-age=' . $seconds);
     $this->addHeader('Expires: ' . $date->format('D, d M Y H:i:s') . ' GMT');
+  }
+
+  public function sendJSON($status, $data, $errors): void {
+    $jsonResponse = new JSONResponse(200, $data, $errors);
+    echo($jsonResponse->json);
   }
 
 }
