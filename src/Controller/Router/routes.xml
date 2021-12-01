@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <routes>
+    <route p="home" controller="PostController" action="showPosts"/>
     <route p="users" controller="UserController" action="showUsers"/>
 
     <!-- REST API -->
