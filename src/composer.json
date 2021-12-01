@@ -1,0 +1,15 @@
+{
+    "name": "bastpaq/src",
+    "autoload": {
+        "psr-4": {
+            "Project\\": "./"
+        }
+    },
+    "authors": [
+        {
+            "name": "bpaquier",
+            "email": "bastien.paquier@gmail.com"
+        }
+    ],
+    "require": {}
+}
