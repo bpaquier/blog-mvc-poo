@@ -2,4 +2,7 @@
 <routes>
     <route p="home" controller="PostController" action="showPosts"/>
     <route p="users" controller="UserController" action="showUsers"/>
+
+    <!-- REST API -->
+    <route p="comment" controller="CommentController" action="getByPost" params="id" />
 </routes>
