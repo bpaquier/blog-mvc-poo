@@ -19,8 +19,8 @@ class Router
               $action = $route->getAttribute('action');
               $params = [];
 
-              if ($route->hasAttribute('parms')) {
-                $keys = explode(',', $route->getAttribute('parms'));
+              if ($route->hasAttribute('params')) {
+                $keys = explode(',', $route->getAttribute('params'));
                 foreach ($keys as $key){
                   if (isset($_GET[$key])) {
                     $params[$key] = htmlspecialchars($_GET[$key]);
