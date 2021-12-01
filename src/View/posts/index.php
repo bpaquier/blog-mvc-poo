@@ -13,7 +13,7 @@
                                 <p class="card-text"><?= substr($post['content'],0,150) . "..." ?></p>
                                 <p class="card-text"><small class="text-muted"><?= $post['author'] ?></small></p>
                                 <p class="card-text"><small class="text-muted"><?= $post['date'] ?></small></p>
-                                <a href="?p=post&id=<?= $post['id'] ?>" class="btn btn-primary">See Post</a>
+                                <a href="/?p=post&id=<?= $post['id'] ?>" class="btn btn-primary">See Post</a>
                             </div>
                         </div>
                     <?php endforeach; ?>
