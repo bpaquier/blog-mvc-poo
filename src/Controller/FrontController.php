@@ -10,7 +10,7 @@ class FrontController extends BaseController
     public function showUsers() {
         $manager = new UserManager();
         $users = $manager->getAllUsers();
-
+    
         return $users;
     }
 }
