@@ -4,5 +4,5 @@
     <route p="users" controller="UserController" action="showUsers"/>
 
     <!-- REST API -->
-    <route p="comment" controller="CommentController" action="getByPost" params="id" />
+    <route p="comment" controller="CommentController" action="get" params="id" />
 </routes>

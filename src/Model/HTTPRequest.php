@@ -1,7 +1,7 @@
 <?php
 namespace App\Model;
 
-class HTTPResquest
+class HTTPRequest
 {
   public function cookieData($key){
     return isset($_COOKIE[$key]) ? $_COOKIE[$key] : null;
