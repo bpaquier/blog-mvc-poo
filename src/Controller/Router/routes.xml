@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <routes>
     <route p="users" controller="UserController" action="showUsers"/>
+
+    <!-- REST API -->
+    <route p="comment" controller="CommentController" action="getByPost" params="id" />
 </routes>
