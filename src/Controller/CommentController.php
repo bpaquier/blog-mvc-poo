@@ -8,8 +8,10 @@ use App\Model\JSONResponse;
 
 class CommentController extends BaseController
 {
-    // Method : 'GET'
-    public function get() {
+   
+    public function commentApi() {
+
+      // Method : 'GET'
       if($this->HTTPRequest->method() == 'GET') {
         $id = $_GET['id'];
         $commentManager = new CommentManager();
@@ -32,18 +34,10 @@ class CommentController extends BaseController
           $this->HTTPResponse->setCacheHeader(300);
           return $this->renderJSON(JSONResponse::ok($comments));
         }
+        
       } 
-
-      $this->renderJSON(JSONResponse::badRequest('yo'));
-      
-    }
-
-
-    // Method : 'POST'
-    public function post(){
-       $this->renderJSON(JSONResponse::badRequest('yo'));
-      if($this->HTTPRequest->method() == 'POST') {
-        // $commentManager = new CommentManager();
+      // Method : 'POST'
+      else if ($this->HTTPRequest->method() == 'POST') {
         $this->renderJSON(JSONResponse::badRequest('yo'));
         // $comment = $commentManager->createOne([
         //   'post_id' => $_POST['post_id'],
@@ -51,7 +45,14 @@ class CommentController extends BaseController
         //   'content' => $_POST['content']
         // ]);
       } else {
-          $this->renderJSON(JSONResponse::ok('yo'));
+
       }
+      
+    }
+
+
+    
+    public function post(){
+    
     }
 }
