@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Vendors\Flash;
+
 class User {
     private $id;
     private $first_name;
@@ -9,6 +11,18 @@ class User {
     private $email;
     private $role;
     private $password;
+
+    public function setEmail(string $email) {
+        if(filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $this->email = $email;
+        } else {
+            Flash::setFlash('invalid mail', 'alert');
+        }
+    }
+
+    public function setPassword(string $password) {
+        $this->password = $password;
+    }
 
     public function getId () {
         return $this->id;

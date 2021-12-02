@@ -13,4 +13,8 @@ class UserController extends BaseController
     
         return $this->render('users', 'users', $users);
     }
+
+    public function showLogin() {
+        return $this->render('Login', 'login', []);
+    }
 }

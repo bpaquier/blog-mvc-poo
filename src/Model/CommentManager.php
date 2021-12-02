@@ -2,6 +2,7 @@
 
 namespace App\Model;
 
+use App\Entity\Comment;
 use App\Model\BaseManager;
 
 class CommentManager extends BaseManager
@@ -24,14 +25,23 @@ class CommentManager extends BaseManager
     }
 
     public function createOne($params){
-        if(isset($params['post_id']) && isset($params['author_name']) && isset($params['content'])){
+        $entity = new Comment();
+        $entity->setData($params);
+
+        $postId = $entity->getPostId();
+        $content = $entity->getContent();
+        $author = $entity->getAuthorName();
+
+        if($postId && $content && $author){
             $query = $this->db->prepare("INSERT INTO $this->table (post_id, author_name, content, date) VALUES (:post_id, :author_name, :content, NOW())");
-            $query->execute($params);
-            $last_id = $this->db->insert_id;
-            
-            echo "New record created successfully. Last inserted ID is: " . $last_id;
+            $query->bindValue(':post_id', $postId, \PDO::PARAM_INT);
+            $query->bindValue(':author_name', $author, \PDO::PARAM_STR);
+            $query->bindValue(':content', $content, \PDO::PARAM_STR);
+            $query->execute();
+            return $this->db->lastInsertId();
+
         } else {
-            JSONResponse::missingParameters();
+            return JSONResponse::missingParameters();
         }
         
     }

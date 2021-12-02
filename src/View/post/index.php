@@ -1,6 +1,24 @@
 <?php
+
+    use App\Model\CommentManager;
     $post = $data['post'];
     $comments = $data['comments'];
+
+
+    if(isset($_POST['author_name']) && isset($_POST['content'])) {
+        $data = $_POST;
+        $data['post_id'] = $post['post_id'];
+
+        $commentManager = new CommentManager();
+        $lastId =  $commentManager->createOne($data);
+
+       if(intVal($lastId) > 0) {
+           header('Location: /?p=post&id=' . $post['post_id']);
+       } else {
+           \App\Vendors\Flash::setFlash("Fail adding comment", "alert");
+       }
+    }
+
     if($post) : ?>
         <div class="single-post">
             <div class="sub-section">
@@ -34,10 +52,14 @@
         </div>
         <div class="sub-section">
             <h2>Ecrire un commentaire</h2>
-            <form>
-                <input class="form-control" type="text" placeholder="Jean francois" readonly>
+            <form method="post">
                 <div class="form-group">
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <label for="exampleFormControlInput1">Name</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" name="author_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Content</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="content" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Comment</button>
             </form>

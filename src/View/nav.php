@@ -1,5 +1,5 @@
-<body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="margin-bottom: 50px">
   <a class="navbar-brand">
     <img href="https://github.com/bpaquier/blog-mvc-poo" target="_blank" class="github-icon" src="../public/images/github.png" alt="github icon">
   </a>
@@ -28,9 +28,7 @@
       </li>
     </ul>
   </div>
-  <form class="nav-form form-inline">
-      <button class="btn btn-primary">Login</button>
-      <button class="btn btn-warning">Admin</button>
-  </form>
+  <div class="nav-form form-inline">
+      <a class="btn btn-primary" href="/login<?= $_SESSION['user']['connected'] ? '?logout=true' : '' ?>"><?= $_SESSION['user']['connected'] ? "Logout" : "Login" ?></a>
+  </div>
 </nav>
-<main>

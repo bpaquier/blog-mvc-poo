@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Model\PostManager;
 use App\Model\CommentManager;
+use App\Vendors\ErrorHandler;
 
 class PostController extends BaseController
 {
@@ -25,7 +26,7 @@ class PostController extends BaseController
             $data['comments'] = $comments;
             return $this->render('Post', 'post', $data);
         } else {
-            header('Location: /home');
+            ErrorHandler::homeRedirect("Post not found");
         }
     }
 }
