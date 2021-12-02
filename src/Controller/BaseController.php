@@ -37,8 +37,18 @@ class BaseController {
     }
 
     public function renderJSON($json) {
-        $this->HTTPResponse->addHeader('Content-Type: application/json');
+        // headers
+        $this->HTTPResponse->setJSONHeader();
+
+        // status code
+        if(isset(json_decode($json)->status)){
+            $this->HTTPResponse->setStatus(json_decode($json)->status);
+        }
+
+        // content
         echo($json);
+        return json_encode($json);
+
     }
 
 }

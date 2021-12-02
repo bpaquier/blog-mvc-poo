@@ -1,13 +1,17 @@
 <?php
 
 namespace App\Entity;
+use App\Entity\Entity;
 
-class Comment {
-    private $id;
-    private $post_id;
-    private $author_id;
-    private $date;
-    private $content;
+class Comment extends Entity {
+    private $table = 'comments';
+    private int $id;
+    private int $post_id;
+    private string $author_name;
+    private string $date;
+    private string $content;
+
+
 
     public function getId() {
         return $this->id;
@@ -18,11 +22,11 @@ class Comment {
     }
 
     public function getAuthorId() {
-        return $this->author_id;
+        return $this->author_name;
     }
 
     public function getDate() {
-        return $this->date;
+        return new \DateTime($this->date);
     }
 
     public function getContent() {

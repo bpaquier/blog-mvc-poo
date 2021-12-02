@@ -34,6 +34,14 @@ class HTTPResponse
     $this->addHeader('Expires: ' . $date->format('D, d M Y H:i:s') . ' GMT');
   }
 
+  public function setJSONHeader(): void {
+    $this->addHeader('Content-Type: application/json');
+  }
+
+  public function setStatus($status): void {
+    http_response_code($status);
+  }
+
   public function sendJSON($status, $data, $errors): void {
     $jsonResponse = new JSONResponse(200, $data, $errors);
     echo($jsonResponse->json);
