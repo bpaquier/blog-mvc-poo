@@ -32,7 +32,26 @@ class CommentController extends BaseController
           $this->HTTPResponse->setCacheHeader(300);
           return $this->renderJSON(JSONResponse::ok($comments));
         }
-      }
+      } 
+
+      $this->renderJSON(JSONResponse::badRequest('yo'));
       
+    }
+
+
+    // Method : 'POST'
+    public function post(){
+       $this->renderJSON(JSONResponse::badRequest('yo'));
+      if($this->HTTPRequest->method() == 'POST') {
+        // $commentManager = new CommentManager();
+        $this->renderJSON(JSONResponse::badRequest('yo'));
+        // $comment = $commentManager->createOne([
+        //   'post_id' => $_POST['post_id'],
+        //   'author_name' => $_POST['author_name'],
+        //   'content' => $_POST['content']
+        // ]);
+      } else {
+          $this->renderJSON(JSONResponse::ok('yo'));
+      }
     }
 }
