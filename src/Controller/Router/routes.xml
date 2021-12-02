@@ -4,6 +4,7 @@
     <route p="post" controller="PostController" action="showSinglePost" params="id"/>
     <route p="users" controller="UserController" action="showUsers"/>
     <route p="login" controller="UserController" action="showLogin"/>
+    <route p="logout" controller="UserController" action="logout"/>
 
     <!-- REST API -->
     <route p="comment" controller="CommentController" action="get" params="id" />

@@ -29,6 +29,11 @@
     </ul>
   </div>
   <div class="nav-form form-inline">
-      <a class="btn btn-primary" href="/login<?= $_SESSION['user']['connected'] ? '?logout=true' : '' ?>"><?= $_SESSION['user']['connected'] ? "Logout" : "Login" ?></a>
+      <?php if($_SESSION['user']['connected']) : ?>
+          <a class="btn btn-primary" href="/logout">Logout</a>
+      <?php else: ?>
+          <a class="btn btn-primary" href="/login">Login</a>
+      <?php endif; ?>
+
   </div>
 </nav>

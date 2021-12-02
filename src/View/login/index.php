@@ -1,13 +1,13 @@
 <?php
     $useManager = new \App\Model\UserManager();
-    if($_SESSION['user']['connected'] && !$_GET['logout']){
+
+    if($_SESSION['user']['connected']){
         header('Location: /home');
-    } elseif($_SESSION['user']['connected'] && $_GET['logout']) {
-        $useManager->logout();
     } elseif (isset($_POST['email']) && isset($_POST['password'])) {
         $useManager->login($_POST['email'], $_POST['password']);
     }
 ?>
+
 <form style="width: 50%; margin: auto;" method="post">
     <div class="mb-3">
         <label for="exampleFormControlInput1" class="form-label">Email</label>

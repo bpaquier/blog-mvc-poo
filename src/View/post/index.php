@@ -28,7 +28,7 @@
                         <div class="card-body">
                             <h5 class="card-title"><?= $post['title'] ?></h5>
                             <p class="card-text"><?= $post['content'] ?></p>
-                            <p class="card-text"><small class="text-muted"><?= $post['author_firstName'] . " " . $post['author_lastName'] ?></small></p>
+                            <p class="card-text"><small class="text-muted">By <?= $post['author_firstName'] . " " . $post['author_lastName'] ?></small></p>
                             <p class="card-text"><small class="text-muted"><?= $post['date'] ?></small></p>
                             <a href="#" class="btn btn-danger">Delete</a>
                             <a href="#" class="btn btn-warning">Update</a>
@@ -51,7 +51,7 @@
             <?php endif; ?>
         </div>
         <div class="sub-section">
-            <h2>Ecrire un commentaire</h2>
+            <h2>Comment this post</h2>
             <form method="post">
                 <div class="form-group">
                     <label for="exampleFormControlInput1">Name</label>
