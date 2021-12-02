@@ -10,10 +10,10 @@ class PDOFactory
 
     public function __construct()  {
         try {
-           $this->bdd = new PDO('mysql:host=db;dbname=w3_blog', 'root', 'example');
+           $this->bdd = new PDO('mysql:host=db;dbname=blog', 'root', 'example');
         }
         catch (\PDOException $e) {
-            die('Erreur :' . $e->getMessage());
+            die('Error :' . $e->getMessage());
         }
     }
 
