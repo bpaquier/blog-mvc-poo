@@ -20,9 +20,9 @@ class Flash
             unset($_SESSION['flash']);
 
             if($type === 'alert') {
-                return "<div class='alert alert-danger' role='alert'>" . $message  . "</div>";
+                return "<div style='width: 50%; margin:0 auto 50px' class='alert alert-danger' role='alert'>" . $message  . "</div>";
             } else {
-                return "<div class='alert alert-success' role='alert'>" . $message . "</div>";
+                return "<div style='width: 50%; margin:0 auto 50px' class='alert alert-success' role='alert'>" . $message . "</div>";
             }
 
         }

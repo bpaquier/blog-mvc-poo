@@ -18,6 +18,7 @@ class PostManager extends BaseManager
     }
 
     public function getPostById(int $id) {
+        var_dump($id);
         try {
             $query = $this->db->prepare('SELECT ' . $this->selectKeys . ' FROM posts INNER JOIN users where post_id = :id AND posts.author_id = users.user_id');
             $query->bindValue(':id', $id, \PDO::PARAM_INT);

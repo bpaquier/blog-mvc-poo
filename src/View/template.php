@@ -13,7 +13,6 @@
 
     <body>
     <?php
-        var_dump($_SESSION);
         include 'nav.php';
 
         if(App\Vendors\Flash::hasFlash()){
