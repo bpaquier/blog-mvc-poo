@@ -9,6 +9,9 @@ class Post {
     private $date;
     private $author_id;
     private $content;
+    private $author_lastName;
+    private $author_firstName;
+
 
     public function getId () {
         return $this->id;

@@ -5,11 +5,11 @@ use App\Entity\Entity;
 
 class Comment extends Entity {
     private $table = 'comments';
-    private int $id;
-    private int $post_id;
-    private string $author_name;
-    private string $date;
-    private string $content;
+    private $id;
+    private $post_id;
+    private $author_name;
+    private $date;
+    private $content;
 
 
 

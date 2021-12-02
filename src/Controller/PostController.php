@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\PostManager;
+use App\Model\CommentManager;
 
 class PostController extends BaseController
 {
@@ -13,13 +14,18 @@ class PostController extends BaseController
     }
 
     public function showSinglePost() {
-        $manager = new PostManager();
-        $post = $manager->getPostById($this->params['id']);
+        $postManager = new PostManager();
+        $commentManager = new CommentManager();
+
+        $post = $postManager->getPostById($this->params['id']);
+        $comments = $commentManager->getAllByPost($this->params['id']);
 
         if($post) {
-            return $this->render('Post', 'post', $post);
+            $data['post'] = $post;
+            $data['comments'] = $comments;
+            return $this->render('Post', 'post', $data);
         } else {
-            header('Location: ?p=home');
+            header('Location: /home');
         }
     }
 }
