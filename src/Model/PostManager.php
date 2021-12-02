@@ -2,6 +2,8 @@
 
 namespace App\Model;
 
+use App\Vendors\ErrorHandler;
+
 class PostManager extends BaseManager
 {
 
@@ -16,11 +18,16 @@ class PostManager extends BaseManager
     }
 
     public function getPostById(int $id) {
-        $query = $this->db->prepare('SELECT ' . $this->selectKeys . ' FROM posts INNER JOIN users where post_id = :id AND posts.author_id = users.user_id');
-        $query->bindValue(':id', $id, \PDO::PARAM_INT);
-        $query->execute();
-        $query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, 'Entity\Posts');
+        try {
+            $query = $this->db->prepare('SELECT ' . $this->selectKeys . ' FROM posts INNER JOIN users where post_id = :id AND posts.author_id = users.user_id');
+            $query->bindValue(':id', $id, \PDO::PARAM_INT);
+            $query->execute();
+            $query->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, 'Entity\Posts');
 
-        return $query->fetch();
+            return $query->fetch();
+        } catch (\PDOException $e) {
+            ErrorHandler::homeRedirect("Post not found");
+        }
+
     }
 }

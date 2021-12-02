@@ -12,7 +12,19 @@
     </head>
 
     <body>
-        <?php include 'nav.php' ?>
-        <?= $content; ?>
+    <?php
+        var_dump($_SESSION);
+        include 'nav.php';
+
+        if(App\Vendors\Flash::hasFlash()){
+            echo App\Vendors\Flash::getFlash();
+        }
+
+        echo $content;
+    ?>
+
+
+
+
     </body>
 </html>
