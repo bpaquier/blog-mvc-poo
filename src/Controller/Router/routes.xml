@@ -13,6 +13,8 @@
     <route p="update-account" controller="UserController" action="showUpdateAccount" />
 
     <!-- REST API -->
-    <route p="comment" controller="CommentController" action="commentApi" params="id" />
-    <route p="comment" controller="PostController" action="postApi" params="id" />
+    <route p="api-comment" controller="CommentController" action="api" params="id" />
+    <route p="api-post" controller="PostController" action="api" params="id" />
+    <route p="api-user" controller="UserController" action="api" params="id" />
+
 </routes>
