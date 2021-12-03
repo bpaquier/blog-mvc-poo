@@ -13,7 +13,7 @@ class PDOFactory
            $this->bdd = new PDO('mysql:host=db;dbname=w3_blog', 'root', 'example');
         }
         catch (\PDOException $e) {
-            die('Erreur :' . $e->getMessage());
+            die('Error :' . $e->getMessage());
         }
     }
 

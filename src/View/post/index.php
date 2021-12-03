@@ -1,46 +1,68 @@
-<div class="single-post">
-  <div class="sub-section">
-    <div class="posts-list">
-      <div class="card">
-      <img class="card-img-top" src="https://source.unsplash.com/1600x900/?beach" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Title</h5>
-        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-        <p class="card-text"><small class="text-muted">Author: User 1</small></p>
-        <p class="card-text"><small class="text-muted">Published 3 mins ago</small></p>
-        <a href="#" class="btn btn-danger">Delete</a>
-        <a href="#" class="btn btn-warning">Update</a>
-      </div>
-    </div>
-    </div>
-  </div>
+<?php
 
-  <div class="sub-section">
-    <h2>Ecrire un commentaire</h2>
-    <form>
-      <input class="form-control" type="text" placeholder="Jean francois" readonly>
-      <div class="form-group">
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-      </div>
-      <button type="submit" class="btn btn-primary">Comment</button>
-    </form>
-  </div>
+    use App\Model\CommentManager;
+    $post = $data['post'];
+    $comments = $data['comments'];
 
-  <div class="sub-section">
-    <h2>Comments</h2>
-    <ul class="list-group">
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        Nice article
-        <span class="badge badge-primary badge-pill">Batman</span>
-      </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        Comment est votre blanquette ?
-        <span class="badge badge-primary badge-pill">Eric Zemmour</span>
-      </li>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        How can I center a div ?
-        <span class="badge badge-primary badge-pill">Jean-françois</span>
-      </li>
-    </ul>
-  </div>
-</div>
+
+    if(isset($_POST['author_name']) && isset($_POST['content'])) {
+        $data = $_POST;
+        $data['post_id'] = $post['post_id'];
+
+        $commentManager = new CommentManager();
+        $lastId =  $commentManager->createOne($data);
+
+       if(intVal($lastId) > 0) {
+           header('Location: /?p=post&id=' . $post['post_id']);
+       } else {
+           \App\Vendors\Flash::setFlash("Fail adding comment", "alert");
+       }
+    }
+
+    if($post) : ?>
+        <div class="single-post">
+            <div class="sub-section">
+                <div class="posts-list">
+                    <div class="card">
+                        <img class="card-img-top" src="https://source.unsplash.com/1600x900/?beach" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title"><?= $post['title'] ?></h5>
+                            <p class="card-text"><?= $post['content'] ?></p>
+                            <p class="card-text"><small class="text-muted">By <?= $post['author_firstName'] . " " . $post['author_lastName'] ?></small></p>
+                            <p class="card-text"><small class="text-muted"><?= $post['date'] ?></small></p>
+                            <a href="#" class="btn btn-danger">Delete</a>
+                            <a href="#" class="btn btn-warning">Update</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php if($comments) : ?>
+                <div class="sub-section">
+                    <h2>Comments</h2>
+                    <ul class="list-group">
+                        <?php foreach ($comments as $comment) : ?>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <?= $comment['content'] ?>
+                                <span class="badge badge-primary badge-pill"><?= $comment['author_name'] ?></span>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php endif; ?>
+        </div>
+        <div class="sub-section">
+            <h2>Comment this post</h2>
+            <form method="post">
+                <div class="form-group">
+                    <label for="exampleFormControlInput1">Name</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" name="author_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Content</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="content" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Comment</button>
+            </form>
+        </div>
+    <?php endif; ?>
+
