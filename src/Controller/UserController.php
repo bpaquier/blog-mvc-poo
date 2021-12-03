@@ -42,4 +42,8 @@ class UserController extends BaseController
         $user = $manager->getSingleUser($connectedUser);
         return $this->render('Update Account', 'update-account', $user);
     }
+
+    public function removeUser(){
+        return $this->render('Remove User', 'remove-user', []);
+    }
 }
