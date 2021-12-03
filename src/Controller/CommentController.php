@@ -37,7 +37,6 @@ class CommentController extends BaseController
       } 
       // Method : 'POST'
       else if ($this->HTTPRequest->method() == 'POST') {
-       
         $json = file_get_contents('php://input');
         $params = json_decode($json, true);
         if(isset($params) && isset($params['content']) && isset($params['post_id']) && isset($params['author_name'])) {

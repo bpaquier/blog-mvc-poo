@@ -31,7 +31,7 @@ class PostManager extends BaseManager
     }
 
     public function addPost(string $title, int $author_id, string $content) {
-
+        
         try 
         {
             $pdo = $this->db;
