@@ -30,8 +30,10 @@
                             <p class="card-text"><?= $post['post_content'] ?></p>
                             <p class="card-text"><small class="text-muted">By <?= $post['author_firstName'] . " " . $post['author_lastName'] ?></small></p>
                             <p class="card-text"><small class="text-muted"><?= $post['post_date'] ?></small></p>
-                            <a href="#" class="btn btn-danger">Delete</a>
-                            <a href="#" class="btn btn-warning">Update</a>
+                            <?php if($_SESSION['user']['id'] === intval($post['author_id']) || $_SESSION['user']['role'] === "admin") : ?>
+                                <a href="#" class="btn btn-danger">Delete</a>
+                                <a href="#" class="btn btn-warning">Update</a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
