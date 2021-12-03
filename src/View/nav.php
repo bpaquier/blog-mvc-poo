@@ -11,7 +11,7 @@
       </li>
         <?php if($_SESSION['user']) : ?>
           <li class="nav-item">
-            <a class="nav-link" href="#">Write article</a>
+            <a class="nav-link" href="/add-post">Write article</a>
           </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">My Posts</a>
