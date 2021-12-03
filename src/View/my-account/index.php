@@ -1,4 +1,6 @@
-
+<?php
+    \App\Vendors\ErrorHandler::redirectIfNoLogin();
+?>
   <div class="container">
     <h1>My Account</h1>
     <form>
