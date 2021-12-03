@@ -8,14 +8,14 @@ use App\Vendors\ErrorHandler;
 
 class PostController extends BaseController
 {
-<<<<<<< HEAD
+
     public function addPost() {
         return $this->render('New post', 'add-post', []);
     }
 
-    public function removePost() {
+    public function removePost(){
         return $this->render('Remove post', 'remove-post', []);
-=======
+    }
     public function showPosts() {
         $manager = new PostManager();
         $posts = $manager->getAllPosts();
@@ -37,6 +37,6 @@ class PostController extends BaseController
         } else {
             ErrorHandler::homeRedirect('Post not found');
         }
->>>>>>> main
+
     }
 }
