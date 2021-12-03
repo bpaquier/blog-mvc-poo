@@ -2,23 +2,18 @@
     $useManager = new \App\Model\UserManager();
 
     \App\Vendors\ErrorHandler::redirectIfNoLogin();
-    var_dump($_SESSION);
     $user = $data;
 
         if($_POST['password'] || $_POST['first_name'] || $_POST['last_name'] || $_POST['role'] || $_POST['email']){
             $hasUpdate = $useManager->update($_POST);
-            $user = $_POST;
+
             if ($hasUpdate === true){
-
+                $user = $_POST;
                 \App\Vendors\Flash::setFlash('Profile Updated', 'info');
-                header('Location: /');
             } else {
-                \App\Vendors\Flash::setFlash('Profile Updated', 'alert');
+                \App\Vendors\Flash::setFlash('Ooooops error', 'alert');
             }
-
-        };
-
-
+        }
  ?>
 
 <form style="width: 50%; margin: auto;" method="post">

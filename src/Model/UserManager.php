@@ -104,7 +104,7 @@ class UserManager extends BaseManager
 
             $query = $this->db->prepare($sql);
             $query->execute($filteredUsers);
-            return true;
+            return self::getSingleUser(intval($_SESSION['user']['id']));
 
         } catch (\PDOException $e) {
             echo $e->getMessage();
