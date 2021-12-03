@@ -11,6 +11,7 @@
     <route p="register" controller="UserController" action="showRegister" />
     <route p="account" controller="UserController" action="showAccount" />
     <route p="update-account" controller="UserController" action="showUpdateAccount" />
+    <route p="remove-user" controller="UserController" action="removeUser" />
 
     <!-- REST API -->
     <route p="api-comment" controller="CommentController" action="api" params="id" />

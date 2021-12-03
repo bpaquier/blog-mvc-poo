@@ -22,14 +22,12 @@
                    <td><?= $user['last_name'] ?></td>
                    <td><?= $user['first_name'] ?></td>
                    <td><?= $user['email'] ?></td>
+                   <td><?= $user['role'] ?></td>
                    <td>
-                       <input type="checkbox" name="is-admin" id="admin" checked="<?php $user['role'] === 'admin' ? "true" : "false" ?>">
-                   </td>
-                   <?php if($_SESSION['user']['role'] === "admin" && $user['user_id'] != $_SESSION['user']['id']) :?>
-                   <td>
-                       <a href="#" class="btn btn-danger">Delete</a>
-                   </td>
-                    <?php endif; ?>
+                       <?php if($_SESSION['user']['role'] === "admin" && $user['user_id'] != $_SESSION['user']['id']) :?>
+                            <a href="/remove-user/<?= $user['user_id'] ?>" class="btn btn-danger">Delete</a>
+                       <?php endif; ?>
+                    </td>
                </tr>
             <?php endforeach; ?>
                 </tbody>
