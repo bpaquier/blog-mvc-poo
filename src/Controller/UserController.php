@@ -21,4 +21,8 @@ class UserController extends BaseController
     public function logout() {
         return $this->render('Logout', 'logout', []);
     }
+
+    public function showRegister() {
+        return $this->render('register', 'register', []);
+    }
 }

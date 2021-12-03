@@ -13,7 +13,13 @@
                                 <p class="card-text"><?= substr($post['content'],0,150) . "..." ?></p>
                                 <p class="card-text"><small class="text-muted">By <?= $post['author_firstName'] . " " . $post['author_lastName'] ?></small></p>
                                 <p class="card-text"><small class="text-muted"><?= $post['date'] ?></small></p>
-                                <a href="/post/<?= $post['post_id'] ?>" class="btn btn-primary">See Post</a>
+                                <a style="width: 100%" href="/post/<?= $post['post_id'] ?>" class="btn btn-primary">See Post</a>
+                                <?php if($_SESSION['user']['id'] === intval($post['author_id']) || $_SESSION['user']['role'] === "admin") : ?>
+                                    <div style="display: flex; width: 100%; justify-content: space-between; margin-top: 10px">
+                                        <a style="width: 49%" href="#" class="btn btn-warning">Update</a>
+                                        <a style="width: 49%" href="#" class="btn btn-danger">Delete</a>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     <?php endforeach; ?>

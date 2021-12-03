@@ -9,6 +9,14 @@ use App\Vendors\ErrorHandler;
 
 class PostController extends BaseController
 {
+
+    public function addPost() {
+        return $this->render('New post', 'add-post', []);
+    }
+
+    public function removePost(){
+        return $this->render('Remove post', 'remove-post', []);
+    }
     public function showPosts() {
         $manager = new PostManager();
         $posts = $manager->getAllPosts();
@@ -22,13 +30,15 @@ class PostController extends BaseController
         $post = $postManager->getPostById($this->params['id']);
         $comments = $commentManager->getAllByPost($this->params['id']);
 
+
         if($post) {
             $data['post'] = $post;
             $data['comments'] = $comments;
             return $this->render('Post', 'post', $data);
         } else {
-            ErrorHandler::homeRedirect("Post not found");
+            ErrorHandler::homeRedirect('Post not found');
         }
+
     }
 
     public function postApi(){

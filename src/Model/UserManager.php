@@ -44,7 +44,7 @@ class UserManager extends BaseManager
             ErrorHandler::wrongLogin();
         } else {
             if(password_verify($password, $user['password'])) {
-                SuccessHandler::successLogin($user['role']);
+                SuccessHandler::successLogin($user['role'], $user['first_name'], $user['user_id']);
             } else {
                 ErrorHandler::wrongLogin();
             }
@@ -55,5 +55,29 @@ class UserManager extends BaseManager
 
     public function logout() {
         unset($_SESSION['user']);
+    }
+
+    public function addUser(string $email, string $firstName, string $lastName, string $password, string $role){
+        try {
+            $userEntity = new User();
+            $userEntity->setUser($email, $password, $firstName, $lastName, $role);
+            $user = $userEntity->getUser();
+
+            var_dump($user);
+
+            $hashedPassword = password_hash($user['password'], PASSWORD_BCRYPT);
+
+            $query = $this->db->prepare('INSERT INTO users (first_name, last_name, email, role, password) VALUES (:firstName, :lastName, :email, :role, :password)');
+            $query->bindValue(':firstName', $user['$fist_name'], \PDO::PARAM_STR);
+            $query->bindValue(':lastName', $user['$last_name'], \PDO::PARAM_STR);
+            $query->bindValue(':email', $user['$email'], \PDO::PARAM_STR);
+            $query->bindValue(':role', $user['$role'], \PDO::PARAM_STR);
+            $query->bindValue(':password', $hashedPassword, \PDO::PARAM_STR);
+            $query->execute();
+            return $this->db->lastInsertId();
+
+        } catch (\PDOException $e) {
+            ErrorHandler::homeRedirect($e->getMessage());
+        }
     }
 }

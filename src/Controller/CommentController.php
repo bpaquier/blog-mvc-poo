@@ -51,7 +51,6 @@ class CommentController extends BaseController
           if($comment){
             return $this->renderJSON(JSONResponse::created($comment));
           } else {
-            var_dump($comment);
             return $this->renderJSON(JSONResponse::internalServerError());
           }
         } else {

@@ -4,10 +4,10 @@ namespace App\Vendors;
 
 class SuccessHandler
 {
-    public static function successLogin(string $role){
-        $_SESSION['user']['connected'] = true;
+    public static function successLogin(string $role, string $firstName, int $id){
         $_SESSION['user']['role'] = $role;
-        Flash::setFlash('welcome Bast', 'alert');
-        header('Location: /home');
+        $_SESSION['user']['name'] = $firstName;
+        $_SESSION['user']['id'] = $id;
+        header('Location: /');
     }
 }

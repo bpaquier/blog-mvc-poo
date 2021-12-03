@@ -2,4 +2,4 @@
 
 unset($_SESSION['user']);
 
-header('Location: /home');
+header('Location: /');
