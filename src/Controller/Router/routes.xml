@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <routes>
     <route p="users" controller="UserController" action="showUsers"/>
+    <route p="add-post" controller="PostController" action="addPost"/>
+    <route p="remove-post" controller="PostController" action="removePost"/>
 </routes>
