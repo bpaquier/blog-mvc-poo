@@ -6,7 +6,9 @@ use APP\Vendors\ErrorHandler;
 
 class PostManager extends BaseManager
 {
-    private $selectKeys = "title, content, first_name AS author_firstName, last_name AS author_lastName, date, post_id, author_id";
+
+    private $selectKeys = "post_title, post_content, first_name AS author_firstName, last_name AS author_lastName, post_date, post_id, author_id";
+
 
     public function getAllPosts() {
         $query = $this->db->prepare('SELECT ' . $this->selectKeys . '  FROM posts INNER JOIN users WHERE posts.author_id = users.user_id');
@@ -35,9 +37,9 @@ class PostManager extends BaseManager
         try 
         {
             $pdo = $this->db;
-            $query = $pdo->prepare('INSERT INTO posts (post_title, post_image, post_date, author_id, post_content) VALUES (:post_titre, :post_image, NOW(), :author_id, :post_content)');
+            $query = $pdo->prepare('INSERT INTO posts (post_title, post_image, post_date, author_id, post_content) VALUES (:post_title, :post_image, NOW(), :author_id, :post_content)');
             $query->execute([
-                'post_titre' => $title,
+                'post_title' => $title,
                 'post_image' => '',
                 'author_id' => $author_id,
                 'post_content' => $content

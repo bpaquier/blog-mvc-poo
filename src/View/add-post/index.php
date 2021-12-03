@@ -2,16 +2,16 @@
 
     use App\Model\PostManager;
 
-    if( isset($_POST['title']) AND isset($_POST['content']) ) {
-        $manager = new PostManager();
-
-        $title = htmlspecialchars($_POST['title']);
-        $author_id = 2;
-        $content = htmlspecialchars($_POST['content']);
-        $post_id = $manager->addPost($title, $author_id, $content);
-
-        header('Location: ?p=post&id=' . $post_id);
-    } else {
+        if( isset($_POST['title']) AND isset($_POST['content']) ) {
+            $manager = new PostManager();
+    
+            $title = htmlspecialchars($_POST['title']);
+            $author_id = intval($_SESSION['user']['id']);
+            $content = htmlspecialchars($_POST['content']);
+            $post_id = $manager->addPost($title, $author_id, $content);
+    
+            header('Location: /post/' . $post_id);
+        } else {
 ?>
         <div class="container">
             <h1>Add a new post</h1>
@@ -32,4 +32,4 @@
             </form>
         </div>
 <?php
-    }
+        }
