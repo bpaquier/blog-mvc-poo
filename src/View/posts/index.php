@@ -16,8 +16,8 @@
                                 <a style="width: 100%" href="/post/<?= $post['post_id'] ?>" class="btn btn-primary">See Post</a>
                                 <?php if($_SESSION['user']['id'] === intval($post['author_id']) || $_SESSION['user']['role'] === "admin") : ?>
                                     <div style="display: flex; width: 100%; justify-content: space-between; margin-top: 10px">
-                                        <a style="width: 49%" href="#" class="btn btn-warning">Update</a>
-                                        <a style="width: 49%" href="/remove-post/<?= intval($post['post_id']) ?>" class="btn btn-danger">Delete</a>
+                                        <a style="width: 49%" href="/add-post/<?= $post['post_id'] ?>" class="btn btn-warning">Update</a>
+                                        <a style="width: 49%" href="/remove-post/<?= $post['post_id'] ?>" class="btn btn-danger">Delete</a>
                                     </div>
                                 <?php endif; ?>
                             </div>

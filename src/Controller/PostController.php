@@ -27,8 +27,10 @@ class PostController extends BaseController
         $postManager = new PostManager();
         $commentManager = new CommentManager();
 
-        $post = $postManager->getPostById($this->params['id']);
-        $comments = $commentManager->getAllByPost($this->params['id']);
+        $id = intval($this->params['id']);
+
+        $post = $postManager->getPostById($id);
+        $comments = $commentManager->getAllByPost($id);
 
 
         if($post) {
@@ -47,7 +49,7 @@ class PostController extends BaseController
             $data = null;
             if(isset($_GET['id'])) {
                 // Get a single post
-                $id = $_GET['id'];
+                $id = intval($_GET['id']);
                 $postManager = new PostManager();
                 $post = $postManager->getPostById($id);
                 if($post) {
@@ -69,8 +71,10 @@ class PostController extends BaseController
             $postManager = new PostManager();
             $commentManager = new CommentManager();
 
-            $post = $postManager->getPostById($this->params['id']);
-            $comments = $commentManager->getAllByPost($this->params['id']);
+            $id = intval($this->params['id']);
+
+            $post = $postManager->getPostById($id);
+            $comments = $commentManager->getAllByPost($id);
 
             if($post) {
                 $data['post'] = $post;

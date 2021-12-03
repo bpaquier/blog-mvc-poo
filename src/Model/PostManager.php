@@ -2,7 +2,8 @@
 
 namespace App\Model;
 
-use APP\Vendors\ErrorHandler;
+use App\Vendors\ErrorHandler;
+use App\Entity\Post;
 
 class PostManager extends BaseManager
 {
@@ -32,21 +33,20 @@ class PostManager extends BaseManager
         }
     }
 
-    public function addPost(string $title, int $author_id, string $content) {
-
+    public function addPost(array $data) {
         try 
         {
-            $pdo = $this->db;
-            $query = $pdo->prepare('INSERT INTO posts (post_title, post_image, post_date, author_id, post_content) VALUES (:post_title, :post_image, NOW(), :author_id, :post_content)');
-            $query->execute([
-                'post_title' => $title,
-                'post_image' => '',
-                'author_id' => $author_id,
-                'post_content' => $content
-            ]);
+            $post = new Post($data);
 
-            $lastInsertId = $pdo->lastInsertId();
-            return $lastInsertId;
+            if($post) {
+
+                $pdo = $this->db;
+                $query = $pdo->prepare('INSERT INTO posts (post_title, post_image, post_date, author_id, post_content) VALUES (:post_title, :post_image, NOW(), :author_id, :post_content)');
+                $query->execute($post->getPost());
+
+                $lastInsertId = $pdo->lastInsertId();
+                return $lastInsertId;
+            }
 
         } catch(\PDOException $e) {
             var_dump($e->getmessage());
@@ -65,5 +65,27 @@ class PostManager extends BaseManager
             var_dump($e->getmessage());
         }    
 
+    }
+
+    public function updatePost($data) {
+        try 
+        {
+
+            $post = new Post($data);
+
+            if($post) {
+                $pdo = $this->db;
+                $query = $pdo->prepare('UPDATE posts SET post_title = :post_title, post_image = :post_image, post_content = :post_content WHERE post_id = :post_id');
+                $query->execute([
+                    'post_id' => $data['post_id'],
+                    'post_title' => $data['post_title'],
+                    'post_image' => $data['post_image'],
+                    'post_content' => $data['post_content']
+                ]);
+            }
+            
+        } catch(\PDOException $e) {
+            var_dump($e->getmessage());
+        }  
     }
 }
