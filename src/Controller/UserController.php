@@ -62,9 +62,9 @@ class UserController extends BaseController
 
             // Return data
             if($data){
-                JSONResponse::ok($data);
+                return $this->renderJSON(JSONResponse::ok($data));
             } else {
-                JSONResponse::notFound();
+                return $this->renderJSON(JSONResponse::notFound());
             }
         // Method: POST
         } else if ($this->HTTPRequest->method() == 'POST'){
@@ -72,17 +72,16 @@ class UserController extends BaseController
             // Create data
             $json = file_get_contents('php://input');
             $params = json_decode($json, true);
-            if(isset($params['username']) && isset($params['password'])){
-                
+            if(isset($params['password']) && isset($params['email']) && isset($params['first_name']) && isset($params['last_name']) && isset($params['role'])){
                 $manager = new UserManager();
-                $user = $manager->add($_POST);
+                $user = $manager->add($params);
                 if($user){
-                    JSONResponse::created($user);
+                    return $this->renderJSON(JSONResponse::created($user));
                 } else {
-                    JSONResponse::badRequest();
+                    return $this->renderJSON(JSONResponse::badRequest());
                 }
             } else {
-                JSONResponse::missingParameters();
+                return $this->renderJSON(JSONResponse::missingParameters());
             }
 
         // Method: DELETE
@@ -94,9 +93,9 @@ class UserController extends BaseController
             if(isset($params['id'])){
                 $manager = new UserManager();
                 $data = $manager->delete($params['id']);
-                if(!$data) JSONResponse::notFound();
+                if(!$data) return $this->renderJSON(JSONResponse::notFound());
             } else {
-                JSONResponse::missingParameters();
+                return $this->renderJSON(JSONResponse::missingParameters());
             }
 
         }
