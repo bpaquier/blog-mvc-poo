@@ -20,6 +20,11 @@ class JSONResponse
     return $res->json;
   }
 
+  static function created($data){
+    $res = new JSONResponse(201, $data, null);
+    return $res->json;
+  }
+
   // 400 ...
 
   static function badRequest($msg = "Bad Request", $errors = []){
@@ -52,11 +57,19 @@ class JSONResponse
     return $res->json;
   }
 
+  static function duplicatedRessource($errors = []){
+    
+    $res = new JSONResponse(409, null, ['Duplicated resource',...$errors]);
+    return $res->json;
+  }
+
   // 500 ...
   static function internalServerError($errors = []){
     $res = new JSONResponse(500, null, ['Internal server error',...$errors]);
     return $res->json;
   }
+
+  
 
 }
 

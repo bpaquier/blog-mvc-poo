@@ -34,7 +34,7 @@
     </div>
     <div class="mb-3">
         <label for="exampleFormControlTextarea1" class="form-label">Password</label>
-        <input type="text" name="password" class="form-control" id="exampleFormControlTextarea1" rows="3" required>
+        <input type="password" name="password" class="form-control" id="exampleFormControlTextarea1" rows="3" required>
     </div>
     <div class="col-12">
         <button class="btn btn-primary" type="submit">Create Account</button>

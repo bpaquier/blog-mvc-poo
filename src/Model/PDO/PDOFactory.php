@@ -2,6 +2,7 @@
 
 namespace App\Model\PDO;
 
+use App\Model\JSONResponse;
 use PDO;
 
 class PDOFactory
@@ -10,10 +11,12 @@ class PDOFactory
 
     public function __construct()  {
         try {
-           $this->bdd = new PDO('mysql:host=db;dbname=blog', 'root', 'example');
+            $this->bdd = new PDO('mysql:host=db;dbname=w3_blog', 'root', 'example');
         }
         catch (\PDOException $e) {
+            echo(JSONResponse::internalServerError());
             die('Error :' . $e->getMessage());
+
         }
     }
 
