@@ -43,31 +43,38 @@ class PostController extends BaseController
 
     }
 
-    public function postApi(){
+    public function api(){
         // Method : 'GET'
         if($this->HTTPRequest->method() == 'GET') {
-            $data = null;
-            if(isset($_GET['id'])) {
-                // Get a single post
-                $id = intval($_GET['id']);
-                $postManager = new PostManager();
-                $post = $postManager->getPostById($id);
-                if($post) {
-                    $data = $post;
-                    JSONResponse::ok($data);
-                    
-                } else {
-                    JSONResponse::notFound();
-                }
+            $id = $_GET['id'];
+            $postManager = new PostManager();
+            $posts = null;
+
+
+            if($id){
+            // Get a specific post
+            $posts = $postManager->getPostById(intval($id));
             } else {
-                // Get a all posts
-                $postManager = new PostManager();
-                $posts = $postManager->getAllPosts();
-                $data = $posts;
-                JSONResponse::ok($data);
+            // Get all posts 
+            $posts = $postManager->getAllPosts();
             }
 
-        } else if ($this->HTTPRequest->method() == 'POST') {
+            if(empty($posts)){
+            // No posts found
+            return $this->renderJSON(JSONResponse::notFound());
+            } else {
+            // Render response
+            $this->HTTPResponse->setCacheHeader(300);
+            return $this->renderJSON(JSONResponse::ok($posts));
+            }
+            
+        } 
+        // Method : 'POST'
+        else if ($this->HTTPRequest->method() == 'POST') {
+            $json = file_get_contents('php://input');
+            $params = json_decode($json, true);
+            if(isset($params) && isset($params['post_title']) && isset($params['author_id']) && isset($params['post_content'])) {
+            
             $postManager = new PostManager();
             $commentManager = new CommentManager();
 
@@ -75,18 +82,30 @@ class PostController extends BaseController
 
             $post = $postManager->getPostById($id);
             $comments = $commentManager->getAllByPost($id);
+            
+            $post = $postManager->addPost(
+                $params['post_title'],
+                $params['author_id'],
+                $params['post_content'],
+            );
 
-            if($post) {
-                $data['post'] = $post;
-                $data['comments'] = $comments;
-                return $this->render('Post', 'post', $data);
+            if($post){
+                return $this->renderJSON(JSONResponse::created($post));
             } else {
-                ErrorHandler::homeRedirect("Post not found");
+                return $this->renderJSON(JSONResponse::internalServerError());
             }
-        } else if ($this->HTTPRequest->method() == 'PUT') {
-        // Method : 'PUT'
-        } else if ($this->HTTPRequest->method() == 'DELETE') {
-        // Method : 'DELETE'
+            } else {
+            return $this->renderJSON(JSONResponse::missingParameters());
+            }
+        
         }
-    }
+
+        // Method : 'DELETE'
+        else if ($this->HTTPRequest->method() == 'DELETE') {
+            $json = file_get_contents('php://input');
+            $params = json_decode($json, true);
+        }
+
+        return $this->renderJSON(JSONResponse::badRequest());
+        }
 }

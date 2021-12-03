@@ -13,5 +13,17 @@ class ErrorHandler
         Flash::setFlash("wrong email and password", 'alert');
     }
 
+    public static function redirectIfNoLogin() {
+        if(!isset($_SESSION['user'])) {
+            header('Location: /');
+        }
+    }
+
+    public static function redirectIfLogin() {
+        if(isset($_SESSION['user'])) {
+            header('Location: /');
+        }
+    }
+
 
 }
