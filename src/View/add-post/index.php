@@ -1,7 +1,8 @@
 <?php
 
+\App\Vendors\ErrorHandler::redirectIfNoLogin();
+
 use App\Model\PostManager;
-use App\Entity\Post;
 
 $manager = new PostManager();
 
