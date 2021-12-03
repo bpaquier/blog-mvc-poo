@@ -19,6 +19,12 @@ class ErrorHandler
         }
     }
 
+    public static function redirectIfNoAdmin() {
+        if($_SESSION['user']['role'] !== "admin") {
+            header('Location: /');
+        }
+    }
+
     public static function redirectIfLogin() {
         if(isset($_SESSION['user'])) {
             header('Location: /');

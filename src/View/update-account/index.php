@@ -33,8 +33,13 @@
     <div class="mb-3">
         <label class="form-label" for="select_role">Role</label>
         <select class="form-control" name="role" id="select_role">
-            <option <?php $user['role'] === 'default' ? "selected" : "" ?> value="default">Default</option>
-            <option <?php $user['role'] === 'admin' ? "selected" : "" ?> value="admin">admin</option>
+            <?php if($user['role'] === "admin") :?>
+                <option value="admin">Admin</option>
+                <option value="default">Default</option>
+            <?php else :?>
+                <option value="default">Default</option>
+                <option value="admin">Admin</option>
+            <?php endif; ?>
         </select>
     </div>
     <div class="mb-3">

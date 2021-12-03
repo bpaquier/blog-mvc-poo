@@ -105,8 +105,21 @@ class UserManager extends BaseManager
             return self::getSingleUser(intval($_SESSION['user']['id']));
 
         } catch (\PDOException $e) {
-            echo $e->getMessage();
           ErrorHandler::homeRedirect($e->getMessage());
         }
+    }
+
+    public function remove(int $user_id) {
+        try
+        {
+            $pdo = $this->db;
+            $query = $pdo->prepare('DELETE FROM users WHERE user_id = :user_id');
+            $query->execute([
+                'user_id' => $user_id
+            ]);
+        } catch(\PDOException $e) {
+            ErrorHandler::homeRedirect($e->getMessage());
+        }
+
     }
 }

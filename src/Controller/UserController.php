@@ -44,70 +44,75 @@ class UserController extends BaseController
         return $this->render('Update Account', 'update-account', $user);
     }
 
-    public function api(){
-        // Method : GET
-        if($this->HTTPRequest->method() == 'GET'){
-            $data = null;
-            // Get data
-            if(isset($_GET['id'])){
-                $id = $_GET['id'];
-                $manager = new UserManager();
-                $user = $manager->getAllUsers($id);
-                $data = $user;
-            } else {
-                $manager = new UserManager();
-                $users = $manager->getAllUsers();
-                $data = $users;
-            }
-
-            // Return data
-            if($data){
-                return $this->renderJSON(JSONResponse::ok($data));
-            } else {
-                return $this->renderJSON(JSONResponse::notFound());
-            }
-        // Method: POST
-        } else if ($this->HTTPRequest->method() == 'POST'){
-            $data = null;
-            // Create data
-            $json = file_get_contents('php://input');
-            $params = json_decode($json, true);
-            if(isset($params['password']) && isset($params['email']) && isset($params['first_name']) && isset($params['last_name']) && isset($params['role'])){
-                $manager = new UserManager();
-                $user = $manager->add($params);
-                if($user){
-                    return $this->renderJSON(JSONResponse::created($user));
-                } else {
-                    return $this->renderJSON(JSONResponse::badRequest());
-                }
-            } else {
-                return $this->renderJSON(JSONResponse::missingParameters());
-            }
-
-        // Method: DELETE
-        } else if ($this->HTTPRequest->method() == 'DELETE'){
-            // Delete data
-            $data = null;
-            $json = file_get_contents('php://input');
-            $params = json_decode($json, true);
-            if(isset($params['id'])){
-                $manager = new UserManager();
-                $data = $manager->delete($params['id']);
-                if(!$data) return $this->renderJSON(JSONResponse::notFound());
-            } else {
-                return $this->renderJSON(JSONResponse::missingParameters());
-            }
-
-        }
-
-
-
-        // Send data
-        if($data){
-            JSONResponse::ok($data);
-        } else {
-            JSONResponse::internalServerError();
-        }
-
+    public function removeUser(){
+        return $this->render('Remove User', 'remove-user', []);
     }
+
+    public function api()
+        {
+            // Method : GET
+            if ($this->HTTPRequest->method() == 'GET') {
+                $data = null;
+                // Get data
+                if (isset($_GET['id'])) {
+                    $id = $_GET['id'];
+                    $manager = new UserManager();
+                    $user = $manager->getAllUsers($id);
+                    $data = $user;
+                } else {
+                    $manager = new UserManager();
+                    $users = $manager->getAllUsers();
+                    $data = $users;
+                }
+
+                // Return data
+                if ($data) {
+                    return $this->renderJSON(JSONResponse::ok($data));
+                } else {
+                    return $this->renderJSON(JSONResponse::notFound());
+                }
+                // Method: POST
+            } else if ($this->HTTPRequest->method() == 'POST') {
+                $data = null;
+                // Create data
+                $json = file_get_contents('php://input');
+                $params = json_decode($json, true);
+                if (isset($params['password']) && isset($params['email']) && isset($params['first_name']) && isset($params['last_name']) && isset($params['role'])) {
+                    $manager = new UserManager();
+                    $user = $manager->add($params);
+                    if ($user) {
+                        return $this->renderJSON(JSONResponse::created($user));
+                    } else {
+                        return $this->renderJSON(JSONResponse::badRequest());
+                    }
+                } else {
+                    return $this->renderJSON(JSONResponse::missingParameters());
+                }
+
+                // Method: DELETE
+            } else if ($this->HTTPRequest->method() == 'DELETE') {
+                // Delete data
+                $data = null;
+                $json = file_get_contents('php://input');
+                $params = json_decode($json, true);
+                if (isset($params['id'])) {
+                    $manager = new UserManager();
+                    $data = $manager->delete($params['id']);
+                    if (!$data) return $this->renderJSON(JSONResponse::notFound());
+                } else {
+                    return $this->renderJSON(JSONResponse::missingParameters());
+                }
+
+            }
+
+
+            // Send data
+            if ($data) {
+                JSONResponse::ok($data);
+            } else {
+                JSONResponse::internalServerError();
+            }
+
+        }
+
 }
