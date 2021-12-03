@@ -44,7 +44,6 @@ class UserController extends BaseController
         return $this->render('Update Account', 'update-account', $user);
     }
 
-
     public function removeUser(){
         return $this->render('Remove User', 'remove-user', []);
     }
@@ -115,4 +114,5 @@ class UserController extends BaseController
             }
 
         }
+
 }
