@@ -9,5 +9,5 @@
 
     <!-- REST API -->
     <route p="comment" controller="CommentController" action="commentApi" params="id" />
-    <!-- <route p="comment" controller="CommentController" action="post" params="post_id" /> -->
+    <route p="comment" controller="PostController" action="postApi" params="id" />
 </routes>

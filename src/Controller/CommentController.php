@@ -8,9 +8,8 @@ use App\Model\JSONResponse;
 
 class CommentController extends BaseController
 {
-   
     public function commentApi() {
-
+     
       // Method : 'GET'
       if($this->HTTPRequest->method() == 'GET') {
         $id = $_GET['id'];
@@ -38,21 +37,30 @@ class CommentController extends BaseController
       } 
       // Method : 'POST'
       else if ($this->HTTPRequest->method() == 'POST') {
-        $this->renderJSON(JSONResponse::badRequest('yo'));
-        // $comment = $commentManager->createOne([
-        //   'post_id' => $_POST['post_id'],
-        //   'author_name' => $_POST['author_name'],
-        //   'content' => $_POST['content']
-        // ]);
-      } else {
-
-      }
+       
+        $json = file_get_contents('php://input');
+        $params = json_decode($json, true);
+        if(isset($params) && isset($params['content']) && isset($params['post_id']) && isset($params['author_name'])) {
+        
+          $commentManager = new CommentManager();
+          $comment = $commentManager->createOne([
+            'content' => $params['content'],
+            'post_id' => $params['post_id'],
+            'author_name' => $params['author_name']
+          ]);
+          if($comment){
+            return $this->renderJSON(JSONResponse::created($comment));
+          } else {
+            var_dump($comment);
+            return $this->renderJSON(JSONResponse::internalServerError());
+          }
+        } else {
+          return $this->renderJSON(JSONResponse::missingParameters());
+        }
       
+      }
+      return $this->renderJSON(JSONResponse::badRequest());
     }
-
-
-    
-    public function post(){
-    
-    }
+      
 }
+  
