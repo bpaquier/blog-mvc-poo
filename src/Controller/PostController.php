@@ -21,12 +21,13 @@ class PostController extends BaseController
         $post = $postManager->getPostById($this->params['id']);
         $comments = $commentManager->getAllByPost($this->params['id']);
 
+
         if($post) {
             $data['post'] = $post;
             $data['comments'] = $comments;
             return $this->render('Post', 'post', $data);
         } else {
-            ErrorHandler::homeRedirect("Post not found");
+            ErrorHandler::homeRedirect('Post not found');
         }
     }
 }

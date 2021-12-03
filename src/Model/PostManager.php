@@ -7,7 +7,7 @@ use App\Vendors\ErrorHandler;
 class PostManager extends BaseManager
 {
 
-    private $selectKeys = "title, content, first_name AS author_firstName, last_name AS author_lastName, date, post_id";
+    private $selectKeys = "title, content, first_name AS author_firstName, last_name AS author_lastName, date, post_id, author_id";
 
     public function getAllPosts() {
         $query = $this->db->prepare('SELECT ' . $this->selectKeys . '  FROM posts INNER JOIN users WHERE posts.author_id = users.user_id');
@@ -18,7 +18,6 @@ class PostManager extends BaseManager
     }
 
     public function getPostById(int $id) {
-        var_dump($id);
         try {
             $query = $this->db->prepare('SELECT ' . $this->selectKeys . ' FROM posts INNER JOIN users where post_id = :id AND posts.author_id = users.user_id');
             $query->bindValue(':id', $id, \PDO::PARAM_INT);
@@ -27,8 +26,8 @@ class PostManager extends BaseManager
 
             return $query->fetch();
         } catch (\PDOException $e) {
-            ErrorHandler::homeRedirect("Post not found");
+            echo 'catch <br>';
+            ErrorHandler::homeRedirect($e->getMessage());
         }
-
     }
 }

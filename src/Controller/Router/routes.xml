@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <routes>
-    <route p="home" controller="PostController" action="showPosts"/>
+    <route p="" controller="PostController" action="showPosts"/>
     <route p="post" controller="PostController" action="showSinglePost" params="id"/>
     <route p="users" controller="UserController" action="showUsers"/>
     <route p="login" controller="UserController" action="showLogin"/>
     <route p="logout" controller="UserController" action="logout"/>
     <route p="404" controller="BaseController" action="show404"/>
+    <route p="register" controller="UserController" action="showRegister" />
 
     <!-- REST API -->
     <route p="comment" controller="CommentController" action="get" params="id" />

@@ -6,7 +6,7 @@ class ErrorHandler
 {
     public static function homeRedirect (string $message) {
         Flash::setFlash($message, 'alert');
-        header('Location: /home');
+        header('Location: /');
     }
 
     public static function wrongLogin () {
