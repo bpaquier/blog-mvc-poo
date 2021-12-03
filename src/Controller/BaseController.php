@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Model\HTTPRequest;
 use App\Model\HTTPResponse;
+use App\Vendors\Flash;
 
 class BaseController {
 
@@ -25,6 +26,11 @@ class BaseController {
         }
 
         $this->$method();
+    }
+
+    public function show404() {
+        Flash::setFlash('Page not found', 'alert');
+        $this->render("404", "404", []);
     }
 
     public function render(string $title, string $view, array $data) {

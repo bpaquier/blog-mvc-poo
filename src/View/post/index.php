@@ -1,6 +1,24 @@
 <?php
+
+    use App\Model\CommentManager;
     $post = $data['post'];
     $comments = $data['comments'];
+
+
+    if(isset($_POST['author_name']) && isset($_POST['content'])) {
+        $data = $_POST;
+        $data['post_id'] = $post['post_id'];
+
+        $commentManager = new CommentManager();
+        $lastId =  $commentManager->createOne($data);
+
+       if(intVal($lastId) > 0) {
+           header('Location: /?p=post&id=' . $post['post_id']);
+       } else {
+           \App\Vendors\Flash::setFlash("Fail adding comment", "alert");
+       }
+    }
+
     if($post) : ?>
         <div class="single-post">
             <div class="sub-section">
@@ -10,7 +28,7 @@
                         <div class="card-body">
                             <h5 class="card-title"><?= $post['title'] ?></h5>
                             <p class="card-text"><?= $post['content'] ?></p>
-                            <p class="card-text"><small class="text-muted"><?= $post['author_firstName'] . " " . $post['author_lastName'] ?></small></p>
+                            <p class="card-text"><small class="text-muted">By <?= $post['author_firstName'] . " " . $post['author_lastName'] ?></small></p>
                             <p class="card-text"><small class="text-muted"><?= $post['date'] ?></small></p>
                             <a href="#" class="btn btn-danger">Delete</a>
                             <a href="#" class="btn btn-warning">Update</a>
@@ -33,11 +51,15 @@
             <?php endif; ?>
         </div>
         <div class="sub-section">
-            <h2>Ecrire un commentaire</h2>
-            <form>
-                <input class="form-control" type="text" placeholder="Jean francois" readonly>
+            <h2>Comment this post</h2>
+            <form method="post">
                 <div class="form-group">
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    <label for="exampleFormControlInput1">Name</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" name="author_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Content</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="content" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Comment</button>
             </form>
