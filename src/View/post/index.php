@@ -30,7 +30,7 @@
                             <p class="card-text"><?= $post['post_content'] ?></p>
                             <p class="card-text"><small class="text-muted">By <?= $post['author_firstName'] . " " . $post['author_lastName'] ?></small></p>
                             <p class="card-text"><small class="text-muted"><?= $post['post_date'] ?></small></p>
-                            <a href="#" class="btn btn-danger">Delete</a>
+                            <a href="/remove-post/<?= intval($post['post_id']) ?>" class="btn btn-danger">Delete</a>
                             <a href="#" class="btn btn-warning">Update</a>
                         </div>
                     </div>
