@@ -59,12 +59,10 @@ class UserManager extends BaseManager
 
     public function add(array $data){
         try {
+
             $userEntity = new User();
             $userEntity->setUser($data);
             $user = $userEntity->getUser();
-
-            var_dump($user);
-
             $query = $this->db->prepare('INSERT INTO users (first_name, last_name, email, role, password) VALUES (:firstName, :lastName, :email, :role, :password)');
             $query->bindValue(':firstName', $user['first_name'], \PDO::PARAM_STR);
             $query->bindValue(':lastName', $user['last_name'], \PDO::PARAM_STR);
