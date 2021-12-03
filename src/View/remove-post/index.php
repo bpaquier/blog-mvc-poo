@@ -3,7 +3,7 @@
 use App\Model\PostManager;
 
 if(isset($_GET['id'])) {
-    $post_id = $_GET['id'];
+    $post_id = intval($_GET['id']);
     $manager = new PostManager();
     $manager->removePost($post_id);
 ?>
