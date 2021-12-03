@@ -7,7 +7,7 @@
         $userId = $useManager->add($_POST);
 
         if(intVal($userId) > 0) {
-            \App\Vendors\SuccessHandler::successLogin($_POST['role'], $_POST['first_name'], $userId);
+            \App\Vendors\SuccessHandler::successLogin($_POST['role'], $_POST['first_name'], $userId, '/');
         } else {
             \App\Vendors\Flash::setFlash("Error", "alert");
         }
