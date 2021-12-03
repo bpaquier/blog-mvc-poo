@@ -8,8 +8,9 @@ use App\Model\JSONResponse;
 
 class CommentController extends BaseController
 {
-    // Method : 'GET'
-    public function get() {
+    public function commentApi() {
+     
+      // Method : 'GET'
       if($this->HTTPRequest->method() == 'GET') {
         $id = $_GET['id'];
         $commentManager = new CommentManager();
@@ -32,26 +33,33 @@ class CommentController extends BaseController
           $this->HTTPResponse->setCacheHeader(300);
           return $this->renderJSON(JSONResponse::ok($comments));
         }
+        
       } 
-
-      $this->renderJSON(JSONResponse::badRequest('yo'));
+      // Method : 'POST'
+      else if ($this->HTTPRequest->method() == 'POST') {
+       
+        $json = file_get_contents('php://input');
+        $params = json_decode($json, true);
+        if(isset($params) && isset($params['content']) && isset($params['post_id']) && isset($params['author_name'])) {
+        
+          $commentManager = new CommentManager();
+          $comment = $commentManager->createOne([
+            'content' => $params['content'],
+            'post_id' => $params['post_id'],
+            'author_name' => $params['author_name']
+          ]);
+          if($comment){
+            return $this->renderJSON(JSONResponse::created($comment));
+          } else {
+            return $this->renderJSON(JSONResponse::internalServerError());
+          }
+        } else {
+          return $this->renderJSON(JSONResponse::missingParameters());
+        }
       
-    }
-
-
-    // Method : 'POST'
-    public function post(){
-       $this->renderJSON(JSONResponse::badRequest('yo'));
-      if($this->HTTPRequest->method() == 'POST') {
-        // $commentManager = new CommentManager();
-        $this->renderJSON(JSONResponse::badRequest('yo'));
-        // $comment = $commentManager->createOne([
-        //   'post_id' => $_POST['post_id'],
-        //   'author_name' => $_POST['author_name'],
-        //   'content' => $_POST['content']
-        // ]);
-      } else {
-          $this->renderJSON(JSONResponse::ok('yo'));
       }
+      return $this->renderJSON(JSONResponse::badRequest());
     }
+      
 }
+  

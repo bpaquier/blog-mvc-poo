@@ -26,10 +26,10 @@
                     <div class="card">
                         <img class="card-img-top" src="https://source.unsplash.com/1600x900/?beach" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title"><?= $post['title'] ?></h5>
-                            <p class="card-text"><?= $post['content'] ?></p>
+                            <h5 class="card-title"><?= $post['post_title'] ?></h5>
+                            <p class="card-text"><?= $post['post_content'] ?></p>
                             <p class="card-text"><small class="text-muted">By <?= $post['author_firstName'] . " " . $post['author_lastName'] ?></small></p>
-                            <p class="card-text"><small class="text-muted"><?= $post['date'] ?></small></p>
+                            <p class="card-text"><small class="text-muted"><?= $post['post_date'] ?></small></p>
                             <a href="#" class="btn btn-danger">Delete</a>
                             <a href="#" class="btn btn-warning">Update</a>
                         </div>

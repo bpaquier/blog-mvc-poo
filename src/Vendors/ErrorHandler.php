@@ -12,4 +12,6 @@ class ErrorHandler
     public static function wrongLogin () {
         Flash::setFlash("wrong email and password", 'alert');
     }
+
+
 }

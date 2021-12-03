@@ -11,7 +11,6 @@
     <route p="register" controller="UserController" action="showRegister" />
 
     <!-- REST API -->
-    <route p="comment" controller="CommentController" action="get" params="id" />
-    <route p="comment" controller="CommentController" action="post" params="post_id" />
-
+    <route p="comment" controller="CommentController" action="commentApi" params="id" />
+    <route p="comment" controller="PostController" action="postApi" params="id" />
 </routes>
