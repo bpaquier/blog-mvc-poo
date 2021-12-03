@@ -8,7 +8,7 @@ use App\Model\JSONResponse;
 
 class CommentController extends BaseController
 {
-    public function commentApi() {
+    public function api() {
      
       // Method : 'GET'
       if($this->HTTPRequest->method() == 'GET') {

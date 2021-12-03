@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Controller\BaseController;
+use App\Model\JSONResponse;
 use App\Model\UserManager;
 
 class UserController extends BaseController
@@ -24,5 +25,73 @@ class UserController extends BaseController
 
     public function showRegister() {
         return $this->render('register', 'register', []);
+    }
+
+    public function api(){
+        // Method : GET
+        if($this->HTTPRequest->method() == 'GET'){
+            $data = null;
+            // Get data
+            if(isset($_GET['id'])){
+                $id = $_GET['id'];
+                $manager = new UserManager();
+                $user = $manager->getAllUsers($id);
+                $data = $user;
+            } else {
+                $manager = new UserManager();
+                $users = $manager->getAllUsers();
+                $data = $users;
+            }
+
+            // Return data
+            if($data){
+                JSONResponse::ok($data);
+            } else {
+                JSONResponse::notFound();
+            }
+        // Method: POST
+        } else if ($this->HTTPRequest->method() == 'POST'){
+            $data = null;
+            // Create data
+            $json = file_get_contents('php://input');
+            $params = json_decode($json, true);
+            if(isset($params['username']) && isset($params['password'])){
+                
+                $manager = new UserManager();
+                $user = $manager->add($_POST);
+                if($user){
+                    JSONResponse::created($user);
+                } else {
+                    JSONResponse::badRequest();
+                }
+            } else {
+                JSONResponse::missingParameters();
+            }
+
+        // Method: DELETE
+        } else if ($this->HTTPRequest->method() == 'DELETE'){
+            // Delete data
+            $data = null;
+            $json = file_get_contents('php://input');
+            $params = json_decode($json, true);
+            if(isset($params['id'])){
+                $manager = new UserManager();
+                $data = $manager->delete($params['id']);
+                if(!$data) JSONResponse::notFound();
+            } else {
+                JSONResponse::missingParameters();
+            }
+
+        }
+
+
+
+        // Send data
+        if($data){
+            JSONResponse::ok($data);
+        } else {
+            JSONResponse::internalServerError();
+        }
+
     }
 }

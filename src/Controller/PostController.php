@@ -41,7 +41,7 @@ class PostController extends BaseController
 
     }
 
-    public function postApi(){
+    public function api(){
         // Method : 'GET'
         if($this->HTTPRequest->method() == 'GET') {
             $id = $_GET['id'];
@@ -50,7 +50,6 @@ class PostController extends BaseController
 
 
             if($id){
-          
             // Get a specific post
             $posts = $postManager->getPostById(intval($id));
             } else {
@@ -58,7 +57,7 @@ class PostController extends BaseController
             $posts = $postManager->getAllPosts();
             }
 
-            if(empty($comments)){
+            if(empty($posts)){
             // No posts found
             return $this->renderJSON(JSONResponse::notFound());
             } else {
@@ -72,13 +71,13 @@ class PostController extends BaseController
         else if ($this->HTTPRequest->method() == 'POST') {
             $json = file_get_contents('php://input');
             $params = json_decode($json, true);
-            if(isset($params) && isset($params['post_id']) && isset($params['post_title']) && isset($params['author_id']) && isset($params['post_content'])) {
+            if(isset($params) && isset($params['post_title']) && isset($params['author_id']) && isset($params['post_content'])) {
             
             $postManager = new PostManager();
             $post = $postManager->addPost(
                 $params['post_title'],
                 $params['author_id'],
-                $params['content'],
+                $params['post_content'],
             );
 
             if($post){
@@ -91,6 +90,13 @@ class PostController extends BaseController
             }
         
         }
+
+        // Method : 'DELETE'
+        else if ($this->HTTPRequest->method() == 'DELETE') {
+            $json = file_get_contents('php://input');
+            $params = json_decode($json, true);
+        }
+
         return $this->renderJSON(JSONResponse::badRequest());
         }
 }
