@@ -9,6 +9,8 @@
     <route p="logout" controller="UserController" action="logout"/>
     <route p="404" controller="BaseController" action="show404"/>
     <route p="register" controller="UserController" action="showRegister" />
+    <route p="account" controller="UserController" action="showAccount" />
+    <route p="update-account" controller="UserController" action="showUpdateAccount" />
 
     <!-- REST API -->
     <route p="comment" controller="CommentController" action="commentApi" params="id" />

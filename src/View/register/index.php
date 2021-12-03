@@ -1,8 +1,10 @@
 <?php
     $useManager = new \App\Model\UserManager();
 
+    \App\Vendors\ErrorHandler::redirectIfLogin();
+
     if(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['email']) && isset($_POST['role']) && isset($_POST['password'])) {
-        $userId = $useManager->addUser($_POST['email'], $_POST['first_name'], $_POST['last_name'], $_POST['password'], $_POST['role']);
+        $userId = $useManager->add($_POST);
 
         if(intVal($userId) > 0) {
             \App\Vendors\SuccessHandler::successLogin($_POST['role'], $_POST['first_name'], $userId);
@@ -37,6 +39,6 @@
         <input type="password" name="password" class="form-control" id="exampleFormControlTextarea1" rows="3" required>
     </div>
     <div class="col-12">
-        <button class="btn btn-primary" type="submit">Create Account</button>
+        <button class="btn btn-primary" type="submit" name="add">Create Account</button>
     </div>
 </form>
