@@ -1,5 +1,7 @@
 <?php
 
+\App\Vendors\ErrorHandler::redirectIfNoLogin();
+
 use App\Model\PostManager;
 use App\Vendors\Flash;
 
