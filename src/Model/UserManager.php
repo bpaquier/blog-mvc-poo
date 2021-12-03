@@ -44,7 +44,7 @@ class UserManager extends BaseManager
             ErrorHandler::wrongLogin();
         } else {
             if(password_verify($password, $user['password'])) {
-                SuccessHandler::successLogin($user['role'], $user['first_name'], $user['user_id']);
+                SuccessHandler::successLogin($user['role'], $user['first_name'], $user['user_id'], "/");
             } else {
                 ErrorHandler::wrongLogin();
             }

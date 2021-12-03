@@ -5,10 +5,11 @@
     $user = $data;
 
         if($_POST['password'] || $_POST['first_name'] || $_POST['last_name'] || $_POST['role'] || $_POST['email']){
-            $hasUpdate = $useManager->update($_POST);
+            $updatedUser = $useManager->update($_POST);
 
-            if ($hasUpdate === true){
-                $user = $_POST;
+            if ($updatedUser){
+                $user = $updatedUser;
+                \App\Vendors\SuccessHandler::successLogin($updatedUser['role'], $updatedUser['first_name'], $updatedUser['user_id'], '');
                 \App\Vendors\Flash::setFlash('Profile Updated', 'info');
             } else {
                 \App\Vendors\Flash::setFlash('Ooooops error', 'alert');
