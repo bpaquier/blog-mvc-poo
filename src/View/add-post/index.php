@@ -51,19 +51,19 @@ if( strlen($_GET['id']) > 0) {
     ## CREATE POST ##
 
     if( isset($_POST['post_title']) AND isset($_POST['post_content']) ) {
-        if($_POST['post_image']){
+        if($_FILES['post_image']){
             var_dump($_FILES);
-            $fileName = $_POST['post_image'];
-            $from = $fileName;
+            $tempName = $_FILES['post_image']['tmp_name'];
+            $fileName = $_FILES['post_image']['name'];
+            $size = $_FILES['post_image']['size'];
+            $from = $tempName;
             $to = $_SERVER['DOCUMENT_ROOT'] .'/uploads/'. $fileName;
             var_dump($to);
-            die();
             move_uploaded_file($from,  $to);
-            var_dump($_SERVER['DOCUMENT_ROOT']);
-            var_dump($fileName);
-            die();
         }
+
         $postData = $_POST;
+        $postData['post_image'] = $fileName;
         $postData['author_id'] = strval($_SESSION['user']['id']);
 
         $newPostId = $manager->addPost($postData);

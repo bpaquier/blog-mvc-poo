@@ -12,11 +12,11 @@
         $commentManager = new CommentManager();
         $lastId =  $commentManager->createOne($data);
 
-       if(intVal($lastId) > 0) {
-           header('Location: /?p=post&id=' . $post['post_id']);
-       } else {
-           \App\Vendors\Flash::setFlash("Fail adding comment", "alert");
-       }
+        if(intVal($lastId) > 0) {
+            header('Location: /?p=post&id=' . $post['post_id']);
+        } else {
+            \App\Vendors\Flash::setFlash("Fail adding comment", "alert");
+        }
     }
 
     if($post) : ?>
@@ -24,7 +24,9 @@
             <div class="sub-section">
                 <div class="posts-list">
                     <div class="card">
-                        <img class="card-img-top" src="https://source.unsplash.com/1600x900/?beach" alt="Card image cap">
+                        <?php if(isset($post['post_image']) && !empty($post['post_image'])): ?>
+                            <img class="card-img-top" src="http://localhost:5555/uploads/<?= $post['post_image'] ?>" alt="Card image cap">
+                        <?php endif; ?>
                         <div class="card-body">
                             <h5 class="card-title"><?= $post['post_title'] ?></h5>
                             <p class="card-text"><?= $post['post_content'] ?></p>
