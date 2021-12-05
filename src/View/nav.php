@@ -14,9 +14,6 @@
             <a class="nav-link" href="/add-post">Write article</a>
           </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">My Posts</a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link" href="/account">My Account</a>
             </li>
         <?php endif; ?>
@@ -24,13 +21,9 @@
         <a class="nav-link" href="/users">User list </a>
       </li>
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link" href="/api-doc" role="button">
                 API
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Posts</a>
-                <a class="dropdown-item" href="#">Comments</a>
-            </div>
         </li>
     </ul>
   </div>

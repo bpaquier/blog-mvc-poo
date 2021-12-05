@@ -5,7 +5,7 @@ namespace App\Entity;
 class Post extends Entity {
     private $id;
     private $title;
-    private $image;
+    private $image = "";
     private $date;
     private $author_id;
     private $content;
@@ -14,13 +14,20 @@ class Post extends Entity {
     public function __construct(array $data)
     {
         $this->setTitle($data['post_title']);
-        $this->setImage($data['post_image']);
+        if($data['post_image']) {
+            $this->setImage($data['post_image']);
+        }
         $this->setAuthorId($data['author_id']);
         $this->setContent($data['post_content']);
     }
 
     public function setTitle(string $title) {
-        $this->title = htmlspecialchars($title);
+        if(strlen($title) > 0) {
+            $this->title = htmlspecialchars($title);
+        } else {
+            $this->title = NULL;
+        }
+
     }
 
     public function setImage(string $image) {
@@ -32,7 +39,12 @@ class Post extends Entity {
     }
 
     public function setContent(string $content) {
-        $this->content = htmlspecialchars($content);
+        if(strlen($content) > 0) {
+            $this->content = htmlspecialchars($content);
+        } else {
+            $this->content = NULL;
+        }
+
     }
 
     public function getPost() {

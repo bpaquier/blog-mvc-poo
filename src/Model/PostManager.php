@@ -34,15 +34,17 @@ class PostManager extends BaseManager
         try 
         {
             $post = new Post($data);
+            var_dump($data);
+            echo "<hr>";
+            var_dump($post->getPost());
 
             if($post) {
-
                 $pdo = $this->db;
                 $query = $pdo->prepare('INSERT INTO posts (post_title, post_image, post_date, author_id, post_content) VALUES (:post_title, :post_image, NOW(), :author_id, :post_content)');
                 $query->execute($post->getPost());
 
-                $lastInsertId = $pdo->lastInsertId();
-                return $lastInsertId;
+               return $pdo->lastInsertId();
+
             }
 
         } catch(\PDOException $e) {
@@ -81,22 +83,50 @@ class PostManager extends BaseManager
     public function updatePost($data) {
         try 
         {
-
             $post = new Post($data);
 
-            if($post) {
-                $pdo = $this->db;
-                $query = $pdo->prepare('UPDATE posts SET post_title = :post_title, post_image = :post_image, post_content = :post_content WHERE post_id = :post_id');
-                $query->execute([
-                    'post_id' => $data['post_id'],
-                    'post_title' => $data['post_title'],
-                    'post_image' => $data['post_image'],
-                    'post_content' => $data['post_content']
-                ]);
+            $filteredPost = [];
+
+            foreach ($post->getPost() as $key => $item) {
+                if($item !== NULL) {
+                    if(!($key === "post_image" && strlen($item) === 0 )) {
+                        $filteredPost[$key] = $item;
+                    }
+
+                }
             }
+
+            $keysString = "";
+
+            foreach ($filteredPost as $key => $value) {
+                $keysString .= $key . " = :" . "$key" . ", ";
+            }
+
+            $filteredPost['post_id'] = $data['post_id'];
+
+            $pdo = $this->db;
+            $query = $pdo->prepare('UPDATE posts SET '. substr($keysString, 0, -2) .' WHERE post_id = :post_id');
+            $query->execute($filteredPost);
+
             
         } catch(\PDOException $e) {
             var_dump($e->getmessage());
         }  
+    }
+
+    public function uploadImage(array $file): string {
+
+        echo '<hr>';
+
+        var_dump($file);
+
+        $tempName = $file['tmp_name'];
+        $fileName = uniqid() . $file['name'];
+        $size = $file['size'];
+        $from = $tempName;
+        $to = $_SERVER['DOCUMENT_ROOT'] .'/uploads/'. $fileName;
+        move_uploaded_file($from,  $to);
+
+        return $fileName;
     }
 }

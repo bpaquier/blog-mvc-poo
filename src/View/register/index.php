@@ -31,7 +31,7 @@
         <label class="form-label" for="select_role">Role</label>
         <select class="form-control" name="role" id="select_role">
             <option value="default">Default</option>
-            <option value="admin">admin</option>
+            <option value="admin">Admin</option>
         </select>
     </div>
     <div class="mb-3">

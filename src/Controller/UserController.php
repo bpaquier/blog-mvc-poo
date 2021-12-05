@@ -57,7 +57,7 @@ class UserController extends BaseController
                 if (isset($_GET['id'])) {
                     $id = $_GET['id'];
                     $manager = new UserManager();
-                    $user = $manager->getAllUsers($id);
+                    $user = $manager->getSingleUser($id);
                     $data = $user;
                 } else {
                     $manager = new UserManager();

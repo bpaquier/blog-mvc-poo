@@ -3,7 +3,6 @@
     use App\Model\CommentManager;
     $post = $data['post'];
     $comments = $data['comments'];
- var_dump($comments);
 
     if(isset($_POST['author_name']) && isset($_POST['content'])) {
         $data = $_POST;

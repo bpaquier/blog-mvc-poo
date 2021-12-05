@@ -33,6 +33,10 @@ class BaseController {
         $this->render("404", "404", []);
     }
 
+    public function showApiDoc() {
+        $this->render("Api Documentation", "api-doc", []);
+    }
+
     public function render(string $title, string $view, array $data) {
         $view = $this->viewsDir . $view . '/index.php';
 

@@ -13,6 +13,7 @@
     <route p="update-account" controller="UserController" action="showUpdateAccount" />
     <route p="remove-user" controller="UserController" action="removeUser" />
     <route p="remove-comment" controller="CommentController" action="remove" />
+    <route p="api-doc" controller="BaseController" action="showApiDoc" />
 
     <!-- REST API -->
     <route p="api-comment" controller="CommentController" action="api" params="id" />
