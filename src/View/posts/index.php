@@ -7,7 +7,9 @@
                 <div class="card-deck">
                     <?php foreach ($posts as $post): ?>
                         <div class="card">
-                            <img class="card-img-top" src="https://source.unsplash.com/1600x900/?beach" alt="Card image cap">
+                        <?php if(isset($post['post_image']) && !empty($post['post_image'])): ?>
+                            <img class="card-img-top" src="http://localhost:5555/uploads/<?= $post['post_image'] ?>" alt="Card image cap">
+                        <?php endif; ?>
                             <div class="card-body">
                                 <h5 class="card-title"><?= $post['post_title'] ?></h5>
                                 <p class="card-text"><?= substr($post['post_content'],0,150) . "..." ?></p>

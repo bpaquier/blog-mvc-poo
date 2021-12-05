@@ -6,5 +6,11 @@ ErrorDocument 404 /404
 RewriteRule ^api/v1/([a-z0-9-]+)(/?)([0-9]*)$ index.php?p=api-$1&id=$3 [QSA,NC,L]
 
 # FRONTEND
+
 RewriteRule ^([a-z0-9-]+)(/?)([0-9]*)$ index.php?p=$1&id=$3 [NC,L]
 #RewriteRule ^api/v1/([a-z0-9-]+)(/?)([0-9]*)$ index.php?p=$1&id=$3 [QSA,NC,L]
+
+RewriteCond %{REQUEST_URI} "/uploads/"
+RewriteCond %{REQUEST_FILENAME} .*\.(jpeg|jpg|gif|png)$
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule (.+) http://localhost:5555/uploads/$1 [L,R=301]

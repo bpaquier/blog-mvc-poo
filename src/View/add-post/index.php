@@ -52,7 +52,19 @@ if( strlen($_GET['id']) > 0) {
     ## CREATE POST ##
 
     if( isset($_POST['post_title']) AND isset($_POST['post_content']) ) {
+        if($_FILES['post_image']){
+            var_dump($_FILES);
+            $tempName = $_FILES['post_image']['tmp_name'];
+            $fileName = $_FILES['post_image']['name'];
+            $size = $_FILES['post_image']['size'];
+            $from = $tempName;
+            $to = $_SERVER['DOCUMENT_ROOT'] .'/uploads/'. $fileName;
+            var_dump($to);
+            move_uploaded_file($from,  $to);
+        }
+
         $postData = $_POST;
+        $postData['post_image'] = $fileName;
         $postData['author_id'] = strval($_SESSION['user']['id']);
 
         $newPostId = $manager->addPost($postData);
@@ -63,14 +75,14 @@ if( strlen($_GET['id']) > 0) {
     
     <div class="container">
         <h1>Add a new post</h1>
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="title">Title</label>
                 <input type="text" class="form-control" id="title" name="post_title" aria-describedby="post title" placeholder="Post title" required>
             </div>
             <div class="form-group">
                 <label for="image">Image</label>
-                <input type="text" class="form-control" id="image" name="post_image" aria-describedby="post image" placeholder="Post image">
+                <input type="file" name="post_image" id="post_image">
             </div>
             <div class="form-group">
                 <label for="content"></label>
