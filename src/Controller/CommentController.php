@@ -8,6 +8,11 @@ use App\Model\JSONResponse;
 
 class CommentController extends BaseController
 {
+
+    public function remove() {
+        $this->render('Remove Comment', 'remove-comment', []);
+    }
+
     public function api() {
      
       // Method : 'GET'

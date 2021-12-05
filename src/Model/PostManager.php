@@ -64,6 +64,20 @@ class PostManager extends BaseManager
 
     }
 
+    public function removePostByAuthorId(int $author_id) {
+        try
+        {
+            $pdo = $this->db;
+            $query = $pdo->prepare('DELETE FROM posts WHERE author_id = :author_id');
+            $query->execute([
+                'author_id' => $author_id
+            ]);
+        } catch(\PDOException $e) {
+            var_dump($e->getmessage());
+        }
+
+    }
+
     public function updatePost($data) {
         try 
         {

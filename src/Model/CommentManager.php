@@ -45,4 +45,30 @@ class CommentManager extends BaseManager
         }
         
     }
+
+    public function removeComments(int $comment_id) {
+        try
+        {
+            $pdo = $this->db;
+            $query = $pdo->prepare("DELETE FROM $this->table WHERE comment_id = :comment_id");
+            $query->execute([
+                'comment_id' => $comment_id
+            ]);
+        } catch(\PDOException $e) {
+            var_dump($e->getmessage());
+        }
+    }
+
+    public function removeCommentsByPostId(int $post_id) {
+        try
+        {
+            $pdo = $this->db;
+            $query = $pdo->prepare("DELETE FROM $this->table WHERE post_id = :post_id");
+            $query->execute([
+                'post_id' => $post_id
+            ]);
+        } catch(\PDOException $e) {
+            var_dump($e->getmessage());
+        }
+    }
 }
