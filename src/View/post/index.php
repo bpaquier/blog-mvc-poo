@@ -3,7 +3,7 @@
     use App\Model\CommentManager;
     $post = $data['post'];
     $comments = $data['comments'];
-
+ var_dump($comments);
 
     if(isset($_POST['author_name']) && isset($_POST['content'])) {
         $data = $_POST;
@@ -46,6 +46,9 @@
                             <li class="list-group-item d-flex justify-content-between align-items-center">
                                 <?= $comment['content'] ?>
                                 <span class="badge badge-primary badge-pill"><?= $comment['author_name'] ?></span>
+                                <?php if($_SESSION['user']['role'] === 'admin'): ?>
+                                    <a href="/remove-comment/<?= $comment['comment_id'] ?>" class="btn btn-danger">Delete</a>
+                                <?php endif; ?>
                             </li>
                         <?php endforeach; ?>
                     </ul>

@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Model\BaseManager;
 use App\Vendors\ErrorHandler;
 use App\Vendors\SuccessHandler;
+use App\Model\PostManager;
 
 class UserManager extends BaseManager
 {
@@ -117,6 +118,9 @@ class UserManager extends BaseManager
             $query->execute([
                 'user_id' => $user_id
             ]);
+
+            $postManager = new PostManager();
+            $postManager->removePostByAuthorId($user_id);
         } catch(\PDOException $e) {
             ErrorHandler::homeRedirect($e->getMessage());
         }
